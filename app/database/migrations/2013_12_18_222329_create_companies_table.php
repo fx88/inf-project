@@ -1,19 +1,23 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateCompaniesTable extends Migration {
 
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
 	public function up()
 	{
-		Schema::create('companies', function(Blueprint $table) {
-
+		Schema::create('companies', function(Blueprint $table)
+		{
 			$table->increments('id');
-
 			$table->string('name', 100)->nullable();
 			$table->string('address', 100)->nullable();
-			$table->integer('zip', 5)->nullable();
+			$table->integer('zip')->nullable();
 			
 			$table->string('place', 100)->nullable();
 			$table->string('street', 100)->nullable();
@@ -23,12 +27,17 @@ class CreateCompaniesTable extends Migration {
 			
 			$table->softDeletes();
 			$table->timestamps();
-			
 		});
 	}
 
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
 	public function down()
 	{
 		Schema::drop('companies');
 	}
+
 }
