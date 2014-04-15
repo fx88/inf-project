@@ -1,0 +1,50 @@
+.nav-line {
+	background: #800080 url("../img/hauptnav_strichlinie.gif");
+	height: 1px;
+	margin-left: -15px;
+	margin-right: -15px;
+}
+
+
+.pagination-sm>li>a {
+	padding: 3px 7px;
+	font-size: 12px;
+}
+
+.dropdown-menu>li>form
+{
+	padding: 5px 10px;
+}
+
+.pagination {
+	margin: 10px;
+}
+
+.jumbotron {
+	padding-top: 10px;
+	padding-bottom: 30px;
+}
+
+.bg-right {
+	padding-top: 10px;
+	background-image: url('../img/bg_left.png');
+	background-position: right;
+	background-repeat: repeat-y;
+	height: 100%;
+}
+
+.bg-left {
+	padding-top: 10px;
+	background-image: url('../img/bg_right.png');
+	background-position: left;
+	background-repeat: repeat-y;
+	height: 100%;
+}
+
+hr {
+	border-color: black;
+}
+
+body, html {
+	height: 100%;
+}

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRatingCompanyTable extends Migration {
+class CreateCompanyTopicTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,15 +12,15 @@ class CreateRatingCompanyTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('rating_company', function(Blueprint $table)
+		Schema::create('company_topic', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('rating_id')->unsigned();
+			$table->integer('topic_id')->unsigned();
 			$table->integer('company_id')->unsigned();
 			$table->timestamps();
 			
 			$table->foreign('company_id')->references('id')->on('companies')->onDelete('restrict')->onUpdate('restrict');
-			$table->foreign('rating_id')->references('id')->on('ratings')->onDelete('restrict')->onUpdate('restrict');
+			$table->foreign('topic_id')->references('id')->on('topics')->onDelete('restrict')->onUpdate('restrict');
 		});
 	}
 
@@ -31,14 +31,14 @@ class CreateRatingCompanyTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('rating_company', function($table) {	
+		Schema::table('company_topic', function($table) {	
 			
 			$table->dropForeign('rating_company_company_id_foreign');
-			$table->dropForeign('rating_company_rating_id_foreign');
+			$table->dropForeign('rating_company_topic_id_foreign');
 			
 		});
 	
-		Schema::drop('rating_company');
+		Schema::drop('company_topic');
 	}
 
 }
