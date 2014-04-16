@@ -25,7 +25,7 @@ class CreateCompaniesTable extends Migration {
 
 			$table->string('contact')->nullable();
 			$table->string('email')->nullable();
-			$table->string('website')->nullable();	
+			$table->string('url')->nullable();	
 					
 			$table->softDeletes();
 			$table->timestamps();

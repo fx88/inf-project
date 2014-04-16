@@ -9,6 +9,8 @@ class UserController extends \BaseController {
 	 */
 	public function index()
 	{
+		$data['delete'] = Session::get('delete');
+	
 		$users = User::all();
 		$data['users'] = $users;
 		return View::make('user.index', $data);
@@ -34,6 +36,9 @@ class UserController extends \BaseController {
 		$inputData = Input::all();
 		
 		$user = User::create($inputData);
+		
+		$user->password = Hash::make($inputData['password']);
+		$user->save();
 		
 		return Redirect::action('UserController@show', $user->id);
 	}
@@ -91,9 +96,18 @@ class UserController extends \BaseController {
 	public function destroy($id)
 	{
 		$user = User::find($id);
-		$user->delete();
+		
+		if($user != Auth::user())
+		{
+			$user->delete();
+			$data['delete'] = true;
+		}
+		else
+		{
+			$data['delete'] = false;
+		}
 
-		return Redirect::action('UserController@index');
+		return Redirect::action('UserController@index')->with($data);
 	}
 
 	public function login()

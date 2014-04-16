@@ -5,7 +5,7 @@
 @stop
  
 @section('content')
-	{{	Form::open(array('action' => array('CompanyController@store', $company->id))); }}
+	{{	Form::open(array('action' => array('CompanyController@update', $company->id))); }}
 	<div class="jumbotron">
 		<div class="row">
 			<div class="col-md-9">

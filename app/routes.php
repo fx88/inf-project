@@ -22,7 +22,7 @@ Route::get('company/create', 					'CompanyController@create');
 Route::get('company/{id}', 						'CompanyController@show');
 Route::get('company/{id}/edit', 				'CompanyController@edit');
 Route::post('company/{id}', 					'CompanyController@update');
-Route::delete('company/{id}', 					'CompanyController@destroy');
+Route::get('company/{id}/delete', 				'CompanyController@destroy');
 
 Route::post('company/{id}/rate', 				'CompanyController@storeRate');
 Route::get('company/{id}/rate/{rateId}', 		'CompanyController@destroyRate');
@@ -49,7 +49,7 @@ Route::get('user/{id}', 						array('before' => 'auth',	'uses'	=>	'UserControlle
 Route::post('user', 							array('before' => 'auth',	'uses'	=>	'UserController@store'));
 Route::get('user/{id}/edit', 					array('before' => 'auth',	'uses'	=>	'UserController@edit'));
 Route::post('user/{id}', 						array('before' => 'auth',	'uses'	=>	'UserController@update'));
-Route::delete('user/{id}', 					array('before' => 'auth',	'uses'	=>	'UserController@destroy'));
+Route::get('user/{id}/delete', 					array('before' => 'auth',	'uses'	=>	'UserController@destroy'));
 
 
 Route::get('login', 							'UserController@loginForm');

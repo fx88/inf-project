@@ -9,7 +9,7 @@ class Company extends Eloquent {
 	 */
 	protected $table = 'companies';
 
-	protected $fillable = array('name','street','zip','place', 'email', 'website');
+	protected $fillable = array('name','street','zip','place', 'email', 'url');
 
 	public function priorities()
     {

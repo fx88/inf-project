@@ -43,7 +43,9 @@
 
 							for($i=4; $i >= 0; $i--)
 							{
-								echo '<label class="btn btn-default btn-xs btn-block"><input type="radio" name="options" value="' . ($i + 1) . '">';
+								echo '<label class="btn btn-default btn-xs btn-block';
+								echo (isset($filter['rate'])) ? (($filter['rate'] == ($i+1)) ? ' active' : '') : '';
+								echo '"><input type="radio" name="rate" value="' . ($i + 1) . '">';
 								for($j=0; $j <= $i; $j++)
 								{
 									echo '<span class="glyphicon glyphicon-star"></span>';
@@ -124,7 +126,7 @@
 				?>
 			</ul>
 		</div>
-		@if($companies->count() == 0)
+		@if($companies == null)
 			<div class="well text-center">
 				<h5>Keine Firmen gefunden...</h5>
 			</div>

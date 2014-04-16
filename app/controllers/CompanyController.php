@@ -25,7 +25,6 @@ class CompanyController extends \BaseController {
 		
 
 		$filterRating = Input::get('rate');
-		$filterRating = ($filterRating && !is_array($filterRating)) ? explode(',', $filterRating) : $filterRating;
 		$data['filter']['rate'] = $filterRating;
 		
 		$filterPage = Input::get('page');
@@ -61,12 +60,28 @@ class CompanyController extends \BaseController {
 			});
 		}
 
+		$companiesRaw = $query->get();
+
 		if($filterRating)
+		{		
+			$data['companies'] = array();
+			foreach($companiesRaw as $company)
+			{
+				if($company->ratings->count() > 0)
+				{
+					$avg = $company->ratings->sum('rating') / $company->ratings->count();
+					if($avg >= $filterRating)
+					{
+						array_push($data['companies'], $company);
+					}
+				}
+			}
+		}
+		else
 		{
-			$query->ratings()->count();
+			$data['companies'] = $companiesRaw;
 		}
 		
-		$data['companies'] = $query->get();
 		return View::make('company.index', $data);
 	}
 
@@ -124,6 +139,7 @@ class CompanyController extends \BaseController {
 
 			$company->topics()->sync($addTopics);
 		}
+
 		$company->save();
 		
 		return Redirect::action('CompanyController@show', $company->id);
@@ -210,7 +226,7 @@ class CompanyController extends \BaseController {
 		$company->zip = (isset($inputData['zip'])) ? $inputData['zip'] : $company->zip;
 		$company->place = (isset($inputData['place'])) ? $inputData['place'] : $company->place;
 		$company->email = (isset($inputData['email'])) ? $inputData['email'] : $company->email;
-		$company->website = (isset($inputData['website'])) ? $inputData['website'] : $company->website;
+		$company->url = (isset($inputData['url'])) ? $inputData['url'] : $company->url;
 		
 		if(isset($inputData['prio']))
 		{
@@ -252,9 +268,20 @@ class CompanyController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
-		//
-	}
+	 public function destroy($id)
+	 {
+		$company = Company::find($id);
+		$company->priorities()->sync(array());
+		$company->topics()->sync(array());
+		$ratings = $company->ratings()->get();
 
+		foreach($ratings as $rating)
+		{
+			$rating->delete();
+		}
+		
+		$company->delete();
+
+		return Redirect::action('CompanyController@index');
+	}
 }	
