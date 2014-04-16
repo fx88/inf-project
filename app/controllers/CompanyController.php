@@ -15,55 +15,55 @@ class CompanyController extends \BaseController {
 		$availableTopics = Topic::all();
 		$data['availableTopics'] = $availableTopics;
 		
-		
+		$filterPriorities = Input::get('prio');
+		$filterPriorities = ($filterPriorities && !is_array($filterPriorities)) ? explode(',', $filterPriorities) : $filterPriorities;
+		$data['filter']['prio'] = $filterPriorities;
 		
 		$filterTopics = Input::get('topic');
 		$filterTopics = ($filterTopics && !is_array($filterTopics)) ? explode(',', $filterTopics) : $filterTopics;
-		$data['filterTopics'] = $filterTopics;
+		$data['filter']['topic'] = $filterTopics;
 		
-		$filterPriorities = Input::get('prio');
-		$filterPriorities = ($filterPriorities && !is_array($filterPriorities)) ? explode(',', $filterPriorities) : $filterPriorities;
-		$data['filterPriorities'] = $filterPriorities;
-		
+
 		$filterRating = Input::get('rate');
 		$filterRating = ($filterRating && !is_array($filterRating)) ? explode(',', $filterRating) : $filterRating;
-		$data['filterRating'] = $filterRating;
+		$data['filter']['rate'] = $filterRating;
 		
 		$filterPage = Input::get('page');
-		$filterPage = ($filterPage && !is_array($filterPage)) ? explode(',', $filterPage) : $filterPage;
-		$data['filterPage'] = $filterPage;
-		
+		$data['filter']['page'] = $filterPage;
+
 		$query = Company::with(array('topics','priorities','ratings'));
+
 		
 		if($filterPage)
 		{
-			$query->where('name', $filterPage);
+			$query->where('name', 'LIKE', $filterPage .'%');
 		}
 
 		if($filterTopics)
 		{
 			$query->whereHas('topics', function($q) use ($filterTopics)
 			{
-			    $q->whereIn('name', $filterTopics);
-			
+				foreach($filterTopics as $topic)
+				{
+					$q->where('name', $topic);
+				}
 			});
-	
 		}
 		
 		if($filterPriorities)
 		{
 			$query->whereHas('priorities', function($q) use ($filterPriorities)
 			{
-			    $q->whereIn('name', $filterPriorities);
-			
+				foreach($filterPriorities as $priority)
+				{
+					$q->where('name', $priority);
+				}
 			});
-	
 		}
 
 		if($filterRating)
 		{
 			$query->ratings()->count();
-	
 		}
 		
 		$data['companies'] = $query->get();

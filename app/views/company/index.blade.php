@@ -12,17 +12,19 @@
 			<div id="collapseOne" class="panel-collapse collapse">
 			<div class="panel-body">
 				<div class="form-group">
-					<?php
-						foreach($availablePriorities as $availablePriority)
-						{	
-							echo '<div class="checkbox">';
-							echo '<label>';
-							echo Form::checkbox('prio[]', $availablePriority->name , ($filterPriorities) ? in_array($availablePriority->name,$filterPriorities) : false);
-							echo $availablePriority->name;
-							echo '</label>';
-							echo '</div>';
-						}
-					?>
+					<div data-toggle="buttons">
+						<?php
+							foreach($availablePriorities as $availablePriority)
+							{
+								
+								echo '<label class="btn btn-default btn-xs btn-block';
+								echo (isset($filter['prio'])) ? ((in_array($availablePriority->name,$filter['prio'])) ? ' active' : '') : ''; 
+								echo '">' . Form::checkbox('prio[]', $availablePriority->name , ($filter['prio']) ? in_array($availablePriority->name,$filter['prio']) : false);
+								echo $availablePriority->name;
+								echo '</label>';
+							}
+						?>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -36,12 +38,12 @@
 			</div>
 			<div id="collapseTwo" class="panel-collapse collapse">
 				<div class="panel-body">
-					<ul>
+					<div data-toggle="buttons">
 						<?php
 
 							for($i=4; $i >= 0; $i--)
 							{
-								echo '<li><a href="url">';
+								echo '<label class="btn btn-default btn-xs btn-block"><input type="radio" name="options" value="' . ($i + 1) . '">';
 								for($j=0; $j <= $i; $j++)
 								{
 									echo '<span class="glyphicon glyphicon-star"></span>';
@@ -51,30 +53,10 @@
 								{
 									echo '<span class="glyphicon glyphicon-star-empty"></span>';
 								}
-								echo ' (+)</a></li>';
+								echo ' (+)</label>';
 							}
-							/*
-								// Filter für Bewertungsdurchschnitt.
-								$url = "index.php?";
-								$class = "active";
-								
-								echo "<li class=\"$class\"><a href=\"$url\">";
-								for($k=1; $k<=5; $k++)
-								{
-									if($k <= $i)
-									{
-										echo '<img src="./img/star.png" alt="*" />';
-									}
-									else
-									{
-										echo '<img src="./img/star_bw.png" alt="" />';
-									}
-								}
-								echo "  & mehr</a></li>";
-							}
-*/
 						?>
-					</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -87,16 +69,16 @@
 			</div>
 			<div id="collapseThree" class="panel-collapse collapse">
 				<div class="panel-body">
-					<div class="form-group">
+					<div data-toggle="buttons">
 						<?php
 							foreach($availableTopics as $availableTopic)
-							{	
-								echo '<div class="checkbox">';
-								echo '<label>';
-								echo Form::checkbox('topic[]', $availableTopic->name , ($filterTopics) ? in_array($availableTopic->name,$filterTopics) : false);
+							{
+								
+								echo '<label class="btn btn-default btn-xs btn-block';
+								echo (isset($filter['topic'])) ? ((in_array($availableTopic->name,$filter['topic'])) ? ' active' : '') : ''; 
+								echo '">' . Form::checkbox('topic[]', $availableTopic->name , ($filter['topic']) ? in_array($availableTopic->name,$filter['topic']) : false);
 								echo $availableTopic->name;
 								echo '</label>';
-								echo '</div>';
 							}
 						?>
 					</div>
@@ -117,7 +99,9 @@
 			<ul class="pagination pagination-sm">
 
 				<?php
-					echo '<li><a href="#">Alle</a></li>';
+					echo '<li';
+					echo (isset($filter['page'])) ? '' : ' class="active"';
+					echo '>' . link_to_action('CompanyController@index', 'Alle', array_merge($filter,array('page' => ''))) . '</li>';
 					
 					$regexs = array(
 						'0-9'=>'0-9', 'A'=>'A', 'B'=>'B', 'C'=>'C', 'D'=>'D', 
@@ -130,57 +114,68 @@
 				
 					foreach($regexs as $name=>$regex)
 					{
-						echo '<li><a href="#">'. $regex . '</a></li>';
+						echo '<li';
+						echo (isset($filter['page'])) ? (($filter['page'] == $regex) ? ' class="active"' : '') : '';
+						echo '>'. link_to_action('CompanyController@index', $regex, array_merge($filter, array('page' => $regex))) . '</li>';
+					
+						//echo '<li><a href="#">'. $regex . '</a></li>';
 						//echo "<a href=\"company?page=$regex\" class=\"111\">$name</a> ";
 					}
 				?>
 			</ul>
 		</div>
-		<div class="table-responsive">
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-					<th>Name</td>
-					<th>Ort</td>
-					<th>Schwerpunkte</td>
-					<th>Bewertung</td>
+		@if($companies->count() == 0)
+			<div class="well text-center">
+				<h5>Keine Firmen gefunden...</h5>
+			</div>
+		@else
+			<div class="table-responsive">
+	
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+						<th>Name</td>
+						<th>Ort</td>
+						<th>Schwerpunkte</td>
+						<th>Bewertung</td>
+						<?php
+							if(Auth::check())
+							{
+								echo '<th></th>';
+							};
+						?>
+						</tr>
+					</thead>
+					<tbody>
 					<?php
-						if(Auth::check())
+						foreach($companies as $company)
 						{
-							echo '<th></th>';
-						};
+							echo '<tr>';
+							echo '<td><a href=\\company\\' . $company->id . '>' . $company->name . '</a></td>';
+							echo '<td>' . $company->place . '</td>';
+							echo '<td></td>';
+	
+							echo '<td>';
+	
+								for ($i = 1; $i <= round($company->ratings()->avg('rating')); $i++) {
+								    echo '<span class="glyphicon glyphicon-star"></span>';
+								}
+								for ($i = 1; $i <= 5-round($company->ratings()->avg('rating')); $i++) {
+								    echo '<span class="glyphicon glyphicon-star-empty"></span>';
+								}
+								echo ' (' . round($company->ratings()->avg('rating'),1) . ')';
+							echo '</td>';
+							
+							if(Auth::check())
+							{
+								echo '<td><a href="' . action('CompanyController@edit', $company->id) . '" type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span></a> ';
+								echo '<a href="' . action('CompanyController@destroy', $company->id) . '" type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a></td></tr>';
+							};
+							echo '</tr>';
+						}
 					?>
-					</tr>
-				</thead>
-				<tbody>
-				<?php
-					foreach($companies as $company)
-					{
-						echo '<tr>';
-						echo '<td><a href=\\company\\' . $company->id . '>' . $company->name . '</a></td>';
-						echo '<td>' . $company->place . '</td>';
-						echo '<td></td>';
-
-						echo '<td>';
-
-							for ($i = 1; $i <= round($company->ratings()->avg('rating')); $i++) {
-							    echo '<span class="glyphicon glyphicon-star"></span>';
-							}
-							for ($i = 1; $i <= 5-round($company->ratings()->avg('rating')); $i++) {
-							    echo '<span class="glyphicon glyphicon-star-empty"></span>';
-							}
-							echo ' (' . round($company->ratings()->avg('rating'),1) . ')';
-						echo '</td>';
-						
-						if(Auth::check())
-						{
-							echo '<td><a href="' . action('CompanyController@edit', $company->id) . '" type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span></a> ';
-							echo '<a href="' . action('CompanyController@destroy', $company->id) . '" type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a></td></tr>';
-						};
-						echo '</tr>';
-					}
-				?>
-				</tbody>
-			</table>
-		</div>
+					</tbody>
+				</table>
+			</div>
+		@endif
 @stop
