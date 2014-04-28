@@ -125,8 +125,8 @@
 									<label for="inputRate" class="control-label">Bewertung</label>
 									<div class="pull-right" style="text-align:right;">
 										<div id="inputRate" class="btn-group btn-group-sm" data-toggle="buttons">
-											<label class="btn btn-success">
-												<input type="radio" name="rating" id="1" value="1">1
+											<label class="btn btn-success active">
+												<input checked="checked" type="radio" name="rating" id="1" value="1">1
 											</label>
 											<label class="btn btn-success">
 												<input type="radio" name="rating" id="2" value="2">2
@@ -161,7 +161,7 @@
 							@foreach ($company->ratings as $rating)
 								<tr>
 									<td>
-										{{ $rating->comment }};
+										{{ $rating->comment }}
 									</td>
 									<td style="text-align:right;">
 										<?php

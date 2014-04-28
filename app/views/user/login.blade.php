@@ -1,37 +1,42 @@
 @extends('layouts.master')
  
 @section('filter')
-	<div class="main">
-			<p class="head"><a href="{{  Request::header('referer') ;}}">Zurück</a></p>
-	</div>
+	<a href="{{action('CompanyController@index')}}" type="button" class="btn btn-warning btn-block"><span class="glyphicon glyphicon-circle-arrow-left"></span> zurück...</a>
 @stop
  
 @section('content')
-	
-	<h1>LOGIN</h1>
-	<div>
-		<table class="firmendetails">
-			<colgroup>
-				<col style="width:40%">
-				<col style="width:60%">
-			</colgroup>
-			<tbody>
-				<tr>
-					<td>
-						<h3>Login</h3>
-					</td>
-				</tr>
-			</tbody>
-			
+	<div class="jumbotron">
+		<div class="row">
+			<div class="col-md-10">
+				<h2>Login</h2>
+			</div>
+			<div class="col-md-2">
+
+			</div>
+		</div>
+		<hr>
+		<div class="row">
 			{{ Form::open(array('action'=> 'UserController@login'))}}
-			{{ Form::text('email','email') }}
-			{{ Form::text('password','password') }}
-			{{ Form::submit('Login') }}
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<p>
+					<div class="form-group ">
+						<input type="email" class="form-control" name="email" placeholder="Email">
+					</div>
+				</p>
+				<p>
+					<div class="form-group ">
+						<input type="password" class="form-control" name="password" placeholder="Kennwort">
+					</div>
+				</p>
+				<div class="pull-right">
+					<p>
+						<a href="" type="submit" class="btn btn-success btn-lg">Login</a>
+					</p>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
 			{{ Form::close() }}
-		</table>
-		<br />
-	</div><!-- CONTENT -->
-	
-	<div id="ratings">
-	</div><!-- RATINGS -->
+		</div>
+	</div>
 @stop

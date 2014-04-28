@@ -77,6 +77,7 @@ class UserController extends \BaseController {
 	 */
 	public function update($id)
 	{
+		dd('update');
 		$inputData = Input::all();
 		
 		$user = User::find($id);

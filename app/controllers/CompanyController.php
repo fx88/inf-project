@@ -61,10 +61,10 @@ class CompanyController extends \BaseController {
 		}
 
 		$companiesRaw = $query->get();
+		$data['companies'] = array();
 
 		if($filterRating)
 		{		
-			$data['companies'] = array();
 			foreach($companiesRaw as $company)
 			{
 				if($company->ratings->count() > 0)
@@ -79,7 +79,10 @@ class CompanyController extends \BaseController {
 		}
 		else
 		{
-			$data['companies'] = $companiesRaw;
+			foreach($companiesRaw as $company)
+			{
+				array_push($data['companies'], $company);
+			}
 		}
 		
 		return View::make('company.index', $data);

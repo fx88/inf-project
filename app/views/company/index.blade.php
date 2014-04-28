@@ -126,7 +126,7 @@
 				?>
 			</ul>
 		</div>
-		@if($companies == null)
+		@if(count($companies) == 0)
 			<div class="well text-center">
 				<h5>Keine Firmen gefunden...</h5>
 			</div>

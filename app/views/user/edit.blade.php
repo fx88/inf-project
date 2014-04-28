@@ -5,6 +5,7 @@
 @stop
  
 @section('content')
+		{{	Form::open(array('action' => array('UserController@update', $user->id))); }}
 		<div class="jumbotron">
 		<div class="row">
 			<div class="col-md-9">
