@@ -69,8 +69,8 @@
 				@endif
 			</ul>
 			</div>
-			<div class="col-md-1 pull-right">
-			<ul class="nav">
+			<div class="col-md-1" style="padding:2px;">
+			<ul class="nav nav-pills pull-right">
 				<li class="dropdown" style="min-width:25px;">
 					<a class="dropdown-toggle" data-toggle="dropdown" style="text-align:right;" href="#"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
 						<ul class="dropdown-menu dropdown-menu-right">
@@ -82,13 +82,15 @@
 					    </ul>
 					@else
 							<li role="presentation" class="dropdown-header">Login</li>
-							<li role="presentation" class="divider"></li>
+							<li role="presentation" class="divider" style="margin: 5px 0px;"></li>
 							<li>
 								{{ Form::open(array('action'=> 'UserController@login'))}}
-								<div class="form-group">
-									{{ Form::text('email', '' , array('class' => 'form-control input-sm' , 'placeholder' => 'Email...')) }}
-									{{ Form::password('password', array('class' => 'form-control input-sm', 'placeholder' => 'Password...')) }}
-								</div>
+									<div class="form-group" style="margin-bottom:10px;">
+										{{ Form::text('email', '' , array('class' => 'form-control input-sm' , 'placeholder' => 'Email...')) }}
+									</div>
+									<div class="form-group" style="margin-bottom:10px;">
+										{{ Form::password('password', array('class' => 'form-control input-sm', 'placeholder' => 'Password...')) }}
+									</div>
 								<div class="text-right">
 									{{ Form::submit('Login' , array('class' => 'btn btn-primary btn-xs' , 'type' => 'submit')) }}
 								</div>
@@ -104,12 +106,7 @@
 		<div class="nav-line"></div>
 		<div style="height:24px;"></div>
 		<div class="row">
-			<div class="col-md-3">
-				@section('filter')
-					section.filter
-				@show
-			</div>
-			<div class="col-md-9">
+			<div class="col-md-12">
 				@section('content')
 					section.content
 				@show

@@ -9,7 +9,7 @@ class PriorityController extends \BaseController {
 	 */
 	public function index()
 	{
-		$priorities = Priority::all();
+		$priorities = Priority::orderBy('name', 'asc')->get();
 		$data['priorities'] = $priorities;
 		return View::make('priority.index', $data);
 	}
@@ -21,7 +21,7 @@ class PriorityController extends \BaseController {
 	 */
 	public function create()
 	{
-		$availableCompanies = Company::all();
+		$availableCompanies = Company::orderBy('name', 'asc')->get();
 		$data['availableCompanies'] = $availableCompanies;
 
 		return View::make('priority.create', $data);
@@ -76,7 +76,7 @@ class PriorityController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$availableCompanies = Company::all();
+		$availableCompanies = Company::orderBy('name', 'asc')->get();
 		$data['availableCompanies'] = $availableCompanies;
 		
 		$priority = Priority::with(array('companies'))->find($id);
@@ -103,7 +103,7 @@ class PriorityController extends \BaseController {
 
 		if(isset($inputData['company']))
 		{
-			$companies = Company::whereIn('name', $inputData['company'])->get(array('id'));
+			$companies = Company::whereIn('name', $inputData['company'])->orderBy('name', 'asc')->get(array('id'));
 	
 			foreach($companies as $company)
 			{

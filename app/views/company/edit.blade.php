@@ -1,9 +1,5 @@
 @extends('layouts.master')
  
-@section('filter')
-<a href="{{Request::header('referer')}}" type="button" class="btn btn-warning btn-block"><span class="glyphicon glyphicon-circle-arrow-left"></span> zurück...</a>
-@stop
- 
 @section('content')
 	{{	Form::open(array('action' => array('CompanyController@update', $company->id))); }}
 	<div class="jumbotron">
@@ -13,6 +9,7 @@
 			</div>
 			<div class="col-md-3">
 					<p class="pull-right" style="margin-top:20px; margin-bottom:0px;">
+						<a href="{{action('CompanyController@show', $company->id)}}" type="button" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>
 						<a href="{{Request::header('referer')}}" type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon glyphicon-trash"></span></a>
 						<button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-floppy-disk"></span></button>
 					</p>
@@ -47,22 +44,24 @@
 					</div>
 				</p>
 			</div>
+			
 			<div class="col-md-3">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h4 class="panel-title">Schwerpunkte</h4>
+						<h4 class="panel-title">Studienschwerpunkte</h4>
 					</div>
 					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-12" style="overflow:scroll; height:100%;">
+						<div class="form-group">
+							<div data-toggle="buttons">
 								<?php
 									foreach($availablePriorities as $availablePriority)
 									{
-										echo '<div class="checkbox">';
-										echo '<label>';
-										echo Form::checkbox('prio[]', $availablePriority->name , $company->priorities->contains($availablePriority->id));
-										echo $availablePriority->name . '</label>';
-										echo '</div>';
+										
+										echo '<label class="btn btn-default btn-xs btn-block';
+										echo ($company->priorities->contains($availablePriority->id)) ? ' active' : ''; 
+										echo '">' . Form::checkbox('prio[]', $availablePriority->name , $company->priorities->contains($availablePriority->id));
+										echo $availablePriority->name;
+										echo '</label>';
 									}
 								?>
 							</div>
@@ -70,22 +69,25 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="col-md-3">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">Themen</h4>
 					</div>
+					
 					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-12" style="overflow:scroll; height:100%;">
+						<div class="form-group">
+							<div data-toggle="buttons">
 								<?php
 									foreach($availableTopics as $availableTopic)
 									{
-										echo '<div class="checkbox">';
-										echo '<label>';
-										echo Form::checkbox('topic[]', $availableTopic->name , $company->topics->contains($availableTopic->id));
-										echo $availableTopic->name . '</label>';
-										echo '</div>';
+										
+										echo '<label class="btn btn-default btn-xs btn-block';
+										echo ($company->topics->contains($availableTopic->id)) ? ' active' : ''; 
+										echo '">' . Form::checkbox('prio[]', $availableTopic->name , $company->topics->contains($availableTopic->id));
+										echo $availableTopic->name;
+										echo '</label>';
 									}
 								?>
 							</div>

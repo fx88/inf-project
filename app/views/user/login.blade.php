@@ -16,27 +16,25 @@
 		</div>
 		<hr>
 		<div class="row">
-			{{ Form::open(array('action'=> 'UserController@login'))}}
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
-				<p>
-					<div class="form-group ">
-						<input type="email" class="form-control" name="email" placeholder="Email">
-					</div>
-				</p>
-				<p>
-					<div class="form-group ">
-						<input type="password" class="form-control" name="password" placeholder="Kennwort">
-					</div>
-				</p>
-				<div class="pull-right">
+				{{ Form::open(array('action'=> 'UserController@login'))}}
 					<p>
-						<a href="" type="submit" class="btn btn-success btn-lg">Login</a>
+						<div class="form-group">
+							{{ Form::text('email', '' , array('class' => 'form-control' , 'placeholder' => 'Email...')) }}
+						</div>
 					</p>
-				</div>
+					<p>
+						<div class="form-group">
+							{{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password...')) }}
+						</div>
+					</p>
+					<div class="text-right">
+						{{ Form::submit('Login' , array('class' => 'btn btn-primary btn-lg' , 'type' => 'submit')) }}
+					</div>
+				{{ Form::close() }}
 			</div>
 			<div class="col-md-3"></div>
-			{{ Form::close() }}
 		</div>
 	</div>
 @stop

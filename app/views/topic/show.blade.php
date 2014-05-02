@@ -13,6 +13,7 @@
 			<div class="col-md-2">
 				@if(Auth::check())
 					<p class="pull-right" style="margin-top:20px; margin-bottom:0px;">
+						<a href="{{action('TopicController@index')}}" type="button" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>
 						<a href="{{action('TopicController@edit', $topic->id)}}" type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon glyphicon-cog"></span></a>
 					</p>
 				@endif

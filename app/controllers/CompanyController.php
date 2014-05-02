@@ -9,10 +9,10 @@ class CompanyController extends \BaseController {
 	 */
 	public function index()
 	{
-		$availablePriorities = Priority::all();
+		$availablePriorities = Priority::orderBy('name', 'asc')->get();
 		$data['availablePriorities'] = $availablePriorities;
 		
-		$availableTopics = Topic::all();
+		$availableTopics = Topic::orderBy('name', 'asc')->get();
 		$data['availableTopics'] = $availableTopics;
 		
 		$filterPriorities = Input::get('prio');
@@ -60,7 +60,7 @@ class CompanyController extends \BaseController {
 			});
 		}
 
-		$companiesRaw = $query->get();
+		$companiesRaw = $query->orderBy('name', 'asc')->get();
 		$data['companies'] = array();
 
 		if($filterRating)
@@ -95,10 +95,10 @@ class CompanyController extends \BaseController {
 	 */
 	public function create()
 	{
-		$availablePriorities = Priority::all();
+		$availablePriorities = Priority::orderBy('name', 'asc')->get();
 		$data['availablePriorities'] = $availablePriorities;
 		
-		$availableTopics = Topic::all();
+		$availableTopics = Topic::orderBy('name', 'asc')->get();
 		$data['availableTopics'] = $availableTopics;
 	
 		return View::make('company.create',$data);
@@ -201,10 +201,10 @@ class CompanyController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$availablePriorities = Priority::all();
+		$availablePriorities = Priority::orderBy('name', 'asc')->get();
 		$data['availablePriorities'] = $availablePriorities;
 		
-		$availableTopics = Topic::all();
+		$availableTopics = Topic::orderBy('name', 'asc')->get();
 		$data['availableTopics'] = $availableTopics;
 	
 		$company = Company::with(array('ratings','topics'))->find($id);

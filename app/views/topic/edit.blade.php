@@ -14,6 +14,7 @@
 			</div>
 			<div class="col-md-3">
 					<p class="pull-right" style="margin-top:20px; margin-bottom:0px;">
+						<a href="{{action('TopicController@index')}}" type="button" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>
 						<a href="{{ action('TopicController@destroy',$topic->id)}}" type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon glyphicon-trash"></span></a>
 						<button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-floppy-disk"></span></button>
 					</p>

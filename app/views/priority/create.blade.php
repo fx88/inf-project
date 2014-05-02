@@ -13,7 +13,7 @@
 			</div>
 			<div class="col-md-3">
 					<p class="pull-right" style="margin-top:20px; margin-bottom:0px;">
-						<a href="{{Request::header('referer')}}" type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon glyphicon-trash"></span></a>
+												<a href="{{action('PriorityController@index')}}" type="button" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>
 						<button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-floppy-disk"></span></button>
 					</p>
 			</div>
@@ -59,5 +59,7 @@
 			<div>
 		</div>
 	{{	Form::close(); }}
+		</div>
 	</div>
+</div>
 @stop
