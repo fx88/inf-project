@@ -77,12 +77,16 @@ class UserController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		dd('update');
 		$inputData = Input::all();
 		
 		$user = User::find($id);
 		$user->fill($inputData);
-		$user->password = Hash::make($inputData['password']);
+
+		if(is_string($inputData['password']) && (strlen($inputData['password']) > 0))
+		{
+			$user->password = Hash::make($inputData['password']);
+		};
+
 		$user->save();
 		
 		return Redirect::action('UserController@show', $user->id);

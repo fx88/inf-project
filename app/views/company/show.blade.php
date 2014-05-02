@@ -7,12 +7,12 @@
 				<h2><?php echo $company->name ?></h2>
 			</div>
 			<div class="col-md-2">
-				@if(Auth::check())
 					<p class="pull-right" style="margin-top:20px; margin-bottom:0px;">
 						<a href="{{action('CompanyController@index')}}" type="button" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>
-						<a href="{{action('CompanyController@edit', $company->id)}}" type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon glyphicon-cog"></span></a>
+						@if(Auth::check())
+							<a href="{{action('CompanyController@edit', $company->id)}}" type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon glyphicon-cog"></span></a>
+						@endif
 					</p>
-				@endif
 			</div>
 		</div>
 		<hr>

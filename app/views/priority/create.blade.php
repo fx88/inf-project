@@ -39,7 +39,7 @@
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Firmen</a>
 						</h4>
 					</div>
-					<div id="collapseOne" class="panel-collapse collapse in" style="overflow:scroll; height:100%;">
+					<div id="collapseOne" class="panel-collapse collapse in" style="overflow:scroll; max-height:300px;">
 						<table class="table" style="margin-bottom:0px;">
 							@foreach ($availableCompanies as $availableCompany)
 								<tr>

@@ -50,7 +50,7 @@
 					<div class="panel-heading">
 						<h4 class="panel-title">Studienschwerpunkte</h4>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body"  style="overflow-y: scroll; max-height:250px;">
 						<div class="form-group">
 							<div data-toggle="buttons">
 								<?php
@@ -76,7 +76,7 @@
 						<h4 class="panel-title">Themen</h4>
 					</div>
 					
-					<div class="panel-body">
+					<div class="panel-body"  style="overflow-y: scroll; max-height:250px;">
 						<div class="form-group">
 							<div data-toggle="buttons">
 								<?php

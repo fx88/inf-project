@@ -25,20 +25,9 @@
 	padding-bottom: 30px;
 }
 
-.bg-right {
-	padding-top: 10px;
-	background-image: url('../img/bg_left.png');
-	background-position: right;
-	background-repeat: repeat-y;
-	height: 100%;
-}
-
-.bg-left {
-	padding-top: 10px;
-	background-image: url('../img/bg_right.png');
-	background-position: left;
-	background-repeat: repeat-y;
-	height: 100%;
+.bg-shadow {
+	min-height: 100%;
+	box-shadow: 0px 0px 20px 0px #d3d3d3;
 }
 
 hr {

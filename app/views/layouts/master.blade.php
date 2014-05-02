@@ -14,8 +14,8 @@
 </head>
 <body>
 <div clas="row" style="height:100%;">
-	<div class="col-md-2 hidden-xs bg-right"></div>
-	<div class="col-md-8">
+	<div class="col-md-2 hidden-xs"></div>
+	<div class="col-md-8 bg-shadow">
 		<div class="row">
 			<div class="col-md-5">
 				<img src="{{ URL::asset('img/logo_hs_wgt.gif') }}" alt="Tanzmaus">
@@ -113,7 +113,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-2 hidden-xs bg-left"></div>
+	<div class="col-md-2 hidden-xs"></div>
 </div>
 </html>
 

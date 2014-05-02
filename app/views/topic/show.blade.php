@@ -29,7 +29,7 @@
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Firmen</a>
 						</h4>
 					</div>
-					<div id="collapseOne" class="panel-collapse collapse in">
+					<div id="collapseOne" class="panel-collapse collapse in" style="overflow:scroll; max-height:300px;">
 					<table class="table" style="margin-bottom:0px;">
 							<?php 
 								foreach($topic->companies as $company)
@@ -46,4 +46,6 @@
 			<div>
 		</div>
 	</div>
+</div>
+</div>
 @stop

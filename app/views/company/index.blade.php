@@ -12,7 +12,7 @@
 					</h4>
 				</div>
 				<div id="collapseOne" class="panel-collapse collapse">
-				<div class="panel-body">
+				<div class="panel-body"style="overflow-y: scroll; max-height:250px;">
 					<div class="form-group">
 						<div data-toggle="buttons">
 							<?php
@@ -72,7 +72,7 @@
 					</h4>
 				</div>
 				<div id="collapseThree" class="panel-collapse collapse">
-					<div class="panel-body">
+					<div class="panel-body"style="overflow-y: scroll; max-height:250px;">
 						<div data-toggle="buttons">
 							<?php
 								foreach($availableTopics as $availableTopic)
@@ -134,17 +134,17 @@
 		@else
 			<div class="table-responsive">
 	
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover table-condensed">
 					<thead>
 						<tr>
-						<th>Name</td>
-						<th>Ort</td>
-						<th>Schwerpunkte</td>
-						<th>Bewertung</td>
+						<th class="col-md-5">Name</td>
+						<th class="col-md-2">Ort</td>
+						<th class="col-md-1">Schwerpunkte</td>
+						<th class="col-md-2">Bewertung</td>
 						<?php
 							if(Auth::check())
 							{
-								echo '<th></th>';
+								echo '<th class="col-md-1"></th>';
 							};
 						?>
 						</tr>
