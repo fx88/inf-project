@@ -82,7 +82,7 @@
 										Anzahl der Bewertungen:
 									</div>
 									<div class="col-md-12 text-center">
-											<h2 style="margin-top:5px;"> {{ $company->ratings->count() }} </h2>
+											<h2 style="margin-top:5px;"> {{ $company->rt_count }} </h2>
 									</div>
 								</div>
 								<div class="row">
@@ -92,9 +92,9 @@
 									<div class="col-md-12 text-center">
 										<h2 style="margin-top:10spx;">
 											<?php
-												if($company->ratings->count() > 0)
+												if($company->rt_count > 0)
 												{
-													$avg = $company->ratings->sum('rating') / $company->ratings->count();													
+													$avg = $company->rt_avg;
 												}
 												else
 												{

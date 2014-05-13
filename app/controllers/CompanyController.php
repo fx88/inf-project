@@ -27,15 +27,15 @@ class CompanyController extends \BaseController {
 		$filterRating = Input::get('rate');
 		$data['filter']['rate'] = $filterRating;
 		
-		$filterPage = Input::get('page');
-		$data['filter']['page'] = $filterPage;
+		$filterLetter = Input::get('letter');
+		$data['filter']['letter'] = $filterLetter;
 
 		$query = Company::with(array('topics','priorities','ratings'));
 
 		
-		if($filterPage)
+		if($filterLetter)
 		{
-			$query->where('name', 'LIKE', $filterPage .'%');
+			$query->where('name', 'LIKE', $filterLetter .'%');
 		}
 
 		if($filterTopics)
@@ -60,30 +60,12 @@ class CompanyController extends \BaseController {
 			});
 		}
 
-		$companiesRaw = $query->orderBy('name', 'asc')->get();
-		$data['companies'] = array();
-
 		if($filterRating)
-		{		
-			foreach($companiesRaw as $company)
-			{
-				if($company->ratings->count() > 0)
-				{
-					$avg = $company->ratings->sum('rating') / $company->ratings->count();
-					if($avg >= $filterRating)
-					{
-						array_push($data['companies'], $company);
-					}
-				}
-			}
-		}
-		else
 		{
-			foreach($companiesRaw as $company)
-			{
-				array_push($data['companies'], $company);
-			}
+			$query->where('rt_avg','>=',$filterRating);
 		}
+
+		$data['companies'] = $query->orderBy('name', 'asc')->paginate(10);
 		
 		return View::make('company.index', $data);
 	}
@@ -143,6 +125,9 @@ class CompanyController extends \BaseController {
 			$company->topics()->sync($addTopics);
 		}
 
+		$company->rt_count 	= $company->ratings->count();
+		$company->rt_avg 	= $company->ratings->sum('rating') / $company->ratings->count();
+
 		$company->save();
 		
 		return Redirect::action('CompanyController@show', $company->id);
@@ -158,7 +143,18 @@ class CompanyController extends \BaseController {
 		$inputData = Input::all();
 		$inputData['company_id'] = $id;
 
-		$rating = Rating::create($inputData);
+		$company = Company::find($id);
+		
+		if($company)
+		{
+			$rating = Rating::create($inputData);
+			
+			$company->rt_count 	= $company->ratings->count();
+			$company->rt_avg 	= $company->ratings->sum('rating') / $company->ratings->count();
+	
+			$company->save();
+
+		}
 		
 		return Redirect::action('CompanyController@show', $id);
 	}
@@ -170,12 +166,24 @@ class CompanyController extends \BaseController {
 	 */
 	public function destroyRate($id, $rateId)
 	{
-		$rating = Rating::where('company_id' , $id)->where('id' , $rateId)->first();;
-		
-		if($rating)
+		$company = Company::find($id);
+	
+		if($company)
 		{
-			$rating->delete();
+			$rating = Rating::where('company_id' , $id)->where('id' , $rateId)->first();;
+			
+			if($rating)
+			{
+				$rating->delete();
+			}
+			
+			$company->rt_count 	= $company->ratings->count();
+			$company->rt_avg 	= $company->ratings->sum('rating') / $company->ratings->count();
+	
+			$company->save();
+
 		}
+	
 		return Redirect::action('CompanyController@edit', $id);
 	}
 
@@ -258,6 +266,9 @@ class CompanyController extends \BaseController {
 
 			$company->topics()->sync($addTopics);
 		}
+		
+		$company->rt_count 	= $company->ratings->count();
+		$company->rt_avg 	= $company->ratings->sum('rating') / $company->ratings->count();
 		
 		$company->save();
 		

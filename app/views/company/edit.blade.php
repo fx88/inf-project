@@ -50,7 +50,7 @@
 					<div class="panel-heading">
 						<h4 class="panel-title">Studienschwerpunkte</h4>
 					</div>
-					<div class="panel-body"  style="overflow-y: scroll; max-height:250px;">
+					<div class="panel-body"  style="overflow-x: hidden; overflow-y: auto; max-height:250px;">
 						<div class="form-group">
 							<div data-toggle="buttons">
 								<?php
@@ -75,8 +75,7 @@
 					<div class="panel-heading">
 						<h4 class="panel-title">Themen</h4>
 					</div>
-					
-					<div class="panel-body"  style="overflow-y: scroll; max-height:250px;">
+					<div class="panel-body"  style="overflow-x: hidden; overflow-y: auto; max-height:250px;">
 						<div class="form-group">
 							<div data-toggle="buttons">
 								<?php
@@ -108,14 +107,14 @@
 					<div class="panel-body" style="height:100%;">
 						<div class="row">
 							<div class="col-md-6">
-								Anzahl der Bewertungen: <strong> {{ $company->ratings->count() }} </strong>
+								Anzahl der Bewertungen: <strong> {{ $company->rt_count }} </strong>
 							</div>
 							<div class="col-md-6">
 								Durchschnittliche Bewertung: 
 									<?php
 										if($company->ratings->count() > 0)
 										{
-											$avg = $company->ratings->sum('rating') / $company->ratings->count();													
+											$avg = $company->rt_avg;
 										}
 										else
 										{

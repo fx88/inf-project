@@ -23,6 +23,9 @@ class CreateCompaniesTable extends Migration {
 			$table->string('street')->nullable();
 			$table->string('country')->nullable();
 
+			$table->integer('rt_avg')->nullable();
+			$table->integer('rt_count')->nullable();
+
 			$table->string('contact')->nullable();
 			$table->string('email')->nullable();
 			$table->string('url')->nullable();	

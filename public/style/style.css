@@ -30,6 +30,10 @@
 	box-shadow: 0px 0px 20px 0px #d3d3d3;
 }
 
+.btn {
+	margin: 0px 2px;
+}
+
 hr {
 	border-color: black;
 }

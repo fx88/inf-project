@@ -103,8 +103,8 @@
 
 				<?php
 					echo '<li';
-					echo (isset($filter['page'])) ? '' : ' class="active"';
-					echo '>' . link_to_action('CompanyController@index', 'Alle', array_merge($filter,array('page' => ''))) . '</li>';
+					echo (isset($filter['letter'])) ? '' : ' class="active"';
+					echo '>' . link_to_action('CompanyController@index', 'Alle', array_merge($filter,array('letter' => ''))) . '</li>';
 					
 					$regexs = array(
 						'0-9'=>'0-9', 'A'=>'A', 'B'=>'B', 'C'=>'C', 'D'=>'D', 
@@ -118,8 +118,8 @@
 					foreach($regexs as $name=>$regex)
 					{
 						echo '<li';
-						echo (isset($filter['page'])) ? (($filter['page'] == $regex) ? ' class="active"' : '') : '';
-						echo '>'. link_to_action('CompanyController@index', $regex, array_merge($filter, array('page' => $regex))) . '</li>';
+						echo (isset($filter['letter'])) ? (($filter['letter'] == $regex) ? ' class="active"' : '') : '';
+						echo '>'. link_to_action('CompanyController@index', $regex, array_merge($filter, array('letter' => $regex))) . '</li>';
 					
 						//echo '<li><a href="#">'. $regex . '</a></li>';
 						//echo "<a href=\"company?page=$regex\" class=\"111\">$name</a> ";
@@ -137,16 +137,16 @@
 				<table class="table table-striped table-hover table-condensed">
 					<thead>
 						<tr>
-						<th class="col-md-5">Name</td>
-						<th class="col-md-2">Ort</td>
-						<th class="col-md-1">Schwerpunkte</td>
-						<th class="col-md-2">Bewertung</td>
-						<?php
-							if(Auth::check())
-							{
-								echo '<th class="col-md-1"></th>';
-							};
-						?>
+							@if(Auth::check())
+								<th class="col-md-6">Name</td>
+								<th class="col-md-2">Ort</td>
+								<th class="col-md-2">Bewertung</td>	
+								<th class="col-md-2"></th>
+							@else
+								<th class="col-md-6">Name</td>
+								<th class="col-md-4">Ort</td>
+								<th class="col-md-2">Bewertung</td>	
+							@endif
 						</tr>
 					</thead>
 					<tbody>
@@ -156,29 +156,29 @@
 							echo '<tr>';
 							echo '<td><a href=\\company\\' . $company->id . '>' . $company->name . '</a></td>';
 							echo '<td>' . $company->place . '</td>';
-							echo '<td></td>';
-	
 							echo '<td>';
-	
-								for ($i = 1; $i <= round($company->ratings()->avg('rating')); $i++) {
+								for ($i = 1; $i <= round($company->rt_avg); $i++) {
 								    echo '<span class="glyphicon glyphicon-star"></span>';
 								}
-								for ($i = 1; $i <= 5-round($company->ratings()->avg('rating')); $i++) {
+								for ($i = 1; $i <= 5-round($company->rt_avg); $i++) {
 								    echo '<span class="glyphicon glyphicon-star-empty"></span>';
 								}
-								echo ' (' . round($company->ratings()->avg('rating'),1) . ')';
+								echo ' (' . round($company->rt_avg,1) . ')';
 							echo '</td>';
 							
 							if(Auth::check())
 							{
-								echo '<td><a href="' . action('CompanyController@edit', $company->id) . '" type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span></a> ';
-								echo '<a href="' . action('CompanyController@destroy', $company->id) . '" type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a></td></tr>';
+								echo '<td><a  href="' . action('CompanyController@edit', $company->id) . '" type="button" class="btn btn-primary btn-xs pull-right"><span class="glyphicon glyphicon-pencil"></span></a> ';
+								echo '<a href="' . action('CompanyController@destroy', $company->id) . '" type="button" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-trash"></span></a></td></tr>';
 							};
 							echo '</tr>';
 						}
 					?>
 					</tbody>
 				</table>
+				<div style="text-align:center;">
+					{{ $companies->appends(Request::except('page'))->links() }}
+				</div>
 			</div>
 		@endif
 	</div>
