@@ -17,7 +17,7 @@
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<h4>Anschrift</h4>
 				<p>
 					<div class="form-group ">
@@ -45,7 +45,7 @@
 				</p>
 			</div>
 			
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">Studienschwerpunkte</h4>
@@ -70,7 +70,7 @@
 				</div>
 			</div>
 			
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">Themen</h4>

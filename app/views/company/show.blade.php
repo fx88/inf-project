@@ -17,7 +17,7 @@
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<h4>Anschrift</h4>
 				<p>
 					<?php echo $company->street ?><br />
@@ -25,11 +25,11 @@
 				</p>
 				<h4>Kontakt</h4>
 				<p>
-					Website: <a href="http://<?php echo $company->url ?>"><?php echo $company->url ?></a><br />
+					Website: <a href="http://<?php echo $company->url ?>" target="_blank"><?php echo $company->url ?></a><br />
 					E-Mail: <a href="mailto:<?php echo $company->email ?>"><?php echo $company->email ?></a>
 				</p>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">Schwerpunkte</h4>
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">Themen</h4>

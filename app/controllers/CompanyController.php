@@ -125,8 +125,8 @@ class CompanyController extends \BaseController {
 			$company->topics()->sync($addTopics);
 		}
 
-		$company->rt_count 	= $company->ratings->count();
-		$company->rt_avg 	= $company->ratings->sum('rating') / $company->ratings->count();
+		$company->rt_count 	= $company->ratings()->count();
+		$company->rt_avg 	= $company->ratings()->avg('rating');
 
 		$company->save();
 		
@@ -149,9 +149,9 @@ class CompanyController extends \BaseController {
 		{
 			$rating = Rating::create($inputData);
 			
-			$company->rt_count 	= $company->ratings->count();
-			$company->rt_avg 	= $company->ratings->sum('rating') / $company->ratings->count();
-	
+			$company->rt_count 	= $company->ratings()->count();
+			$company->rt_avg 	= $company->ratings()->avg('rating');
+
 			$company->save();
 
 		}
@@ -177,9 +177,9 @@ class CompanyController extends \BaseController {
 				$rating->delete();
 			}
 			
-			$company->rt_count 	= $company->ratings->count();
-			$company->rt_avg 	= $company->ratings->sum('rating') / $company->ratings->count();
-	
+			$company->rt_count 	= $company->ratings()->count();
+			$company->rt_avg 	= $company->ratings()->avg('rating');
+
 			$company->save();
 
 		}
@@ -267,8 +267,8 @@ class CompanyController extends \BaseController {
 			$company->topics()->sync($addTopics);
 		}
 		
-		$company->rt_count 	= $company->ratings->count();
-		$company->rt_avg 	= $company->ratings->sum('rating') / $company->ratings->count();
+		$company->rt_count 	= $company->ratings()->count();
+		$company->rt_avg 	= $company->ratings()->avg('rating');
 		
 		$company->save();
 		
